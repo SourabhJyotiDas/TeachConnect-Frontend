@@ -1,6 +1,4 @@
 import React from "react";
-import { MdLogout } from "react-icons/md";
-import { RxDashboard } from "react-icons/rx";
 import { FiSettings } from "react-icons/fi";
 import { Link } from "react-router-dom";
 
@@ -30,8 +28,8 @@ export default function Profile() {
             <>
               <Link to={"/admin/dashboard"}>
                 <button className="text-white bg-purple-500 border-0 py-2 px-6 focus:outline-none hover:bg-purple-600 rounded text-lg flex items-center">
-                  <RxDashboard className="mx-2" />
-                  Dashboard
+                <FiSettings className="mx-2" />
+                  Admin
                 </button>
               </Link>
             </>

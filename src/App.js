@@ -19,6 +19,9 @@ import PaymentFail from './components/Payments/PaymentFail';
 import CourseDetails from './components/Courses/CourseDetails';
 import { useEffect } from 'react';
 import Editprofile from './components/User/Editprofile';
+import Create from './components/Admin/Create';
+import AllCourses from './components/Admin/AllCourses';
+import AllUsers from './components/Admin/AllUsers';
 
 
 function App() {
@@ -53,7 +56,14 @@ function App() {
           <Route path={"/editprofile"} element={<Editprofile />} />
           <Route path={"/settings"} element={<ProfileSetting />} />
           <Route path={"/changepassword"} element={<ChangePassword />} />
+
+          {/* Admin Routes */}
           <Route path={"/admin/dashboard"} element={<Dashboard />} />
+          <Route path={"/admin/createcourse"} element={<Create />} />
+          <Route path={"/admin/courses"} element={<AllCourses />} />
+          <Route path={"/admin/users"} element={<AllUsers />} />
+
+
 
           <Route path={"*"} element={< NotFound />} />
 

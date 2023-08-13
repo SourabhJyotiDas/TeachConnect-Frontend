@@ -1,9 +1,9 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { FcMindMap } from "react-icons/fc";
 
-
 export default function Navbar() {
+  const location = useLocation();
   const isAuthenticated = true;
 
   return (
@@ -19,20 +19,33 @@ export default function Navbar() {
         </Link>
         <nav className="md:ml-auto flex flex-wrap items-center text-base justify-center">
           <Link to={"/"} className="mr-5 hover:text-white">
-            Home
+            <span className={location.pathname === "/" ? "active" : ""}>
+              Home
+            </span>
           </Link>
           <Link to={"/courses"} className="mr-5 hover:text-white">
-            Courses
+            <span className={location.pathname === "/courses" ? "active" : ""}>
+              Courses
+            </span>
           </Link>
           <Link to={"/request"} className="mr-5 hover:text-white">
-            Request A Course
+            <span className={location.pathname === "/request" ? "active" : ""}>
+              Request A Course
+            </span>
           </Link>
           <Link to={"/contact"} className="mr-5 hover:text-white">
-            Contact Us
+            <span className={location.pathname === "/contact" ? "active" : ""}>
+              Contact Us
+            </span>
           </Link>
 
           {isAuthenticated ? (
-            <Link to={"/profile"}>Profile</Link>
+            <Link to={"/profile"}>
+              <span
+                className={location.pathname === "/profile" ? "active" : ""}>
+                Profile
+              </span>
+            </Link>
           ) : (
             <Link to={"login"}>
               <button className="inline-flex items-center bg-indigo-600 text-white border-0 py-1 px-3 focus:outline-none hover:bg-gray-700 rounded text-base  ">
