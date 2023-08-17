@@ -3,27 +3,43 @@ import Sidebar from "./Sidebar";
 import { AiOutlineMenu } from "react-icons/ai";
 
 import { Doughnut, Line } from "react-chartjs-2";
-import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, ArcElement } from "chart.js"
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+  ArcElement,
+} from "chart.js";
 ChartJS.register(
-  CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, ArcElement
-)
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+  ArcElement
+);
 
 export default function Dashboard() {
   const lineState = {
-    labels: ["Initial Amount", "Amount Earned"],
+    labels: getLastYearMOnths(),
     datasets: [
       {
         label: "TOTAL AMOUNT",
         backgroundColor: ["tomato"],
         hoverBackgroundColor: ["rgb(197, 72, 49)"],
-        data: [0, 5476],
+        data: [0, 476, 23, 456],
       },
     ],
   };
 
-
   const data = {
-    labels: ["Preparing", "Shipped", "Delivered"],
+    labels: ["Subscribed", "Not Subscribed"],
     datasets: [
       {
         label: "# of orders",
@@ -31,27 +47,61 @@ export default function Dashboard() {
           // ordersCount
           //   ? [ordersCount.preparing, ordersCount.shipped, ordersCount.delivered]
           //   :
-          [23, 33, 66],
-        backgroundColor: [
-          "rgba(159,63,176,0.1)",
-          "rgba(78,63,176,0.2)",
-          "rgba(156,0,60,0.3)",
-        ],
-        borderColor: ["rgb(159,63,176)", "rgb(78,63,176)", "rgb(156,0,60)"],
+          [33, 66],
+        backgroundColor: ["#8e5cf4", "#e9489b"],
+        borderColor: ["white", "white"],
         borderWidth: 1,
       },
     ],
   };
 
+  function getLastYearMOnths() {
+    const labels = [];
+
+    const months = [
+      "Jan",
+      "Feb",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "Aug",
+      "Sept",
+      "Oct",
+      "Nov",
+      "Dec",
+    ];
+
+    const currentMonth = new Date().getMonth();
+    const remain = 11 - currentMonth;
+
+    for (let i = currentMonth; i < months.length; i--) {
+      const element = months[i];
+      labels.unshift(element);
+      if (i === 0) break;
+    }
+    // console.log(labels);
+    for (let i = 11; i > remain; i--) {
+      if (i === currentMonth) break;
+      const element = months[i];
+      labels.unshift(element);
+    }
+    // console.log(labels);
+    return labels
+  }
+  
+
   return (
     <>
-      <section className="text-gray-400 bg-gray-900 flex pt-20">
-        <Sidebar />
+      <Sidebar />
+      <section className="text-gray-400 bg-gray-900 flex justify-center items-center pt-20">
         <div className="flex flex-col justify-center items-center ">
-          <p className="text-center para text-xs">{`Last Updated was on ${String(new Date()).split("G")[0]}`}</p>
+          <p className="text-center para text-xs">{`Last Updated was on ${
+            String(new Date()).split("G")[0]
+          }`}</p>
           <Doughnut data={data} />
           <Line data={lineState} />
-
         </div>
       </section>
     </>

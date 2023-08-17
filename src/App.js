@@ -22,6 +22,7 @@ import Editprofile from './components/User/Editprofile';
 import Create from './components/Admin/Create';
 import AllCourses from './components/Admin/AllCourses';
 import AllUsers from './components/Admin/AllUsers';
+import Lectures from './components/Admin/Lectures.jsx';
 
 
 function App() {
@@ -62,6 +63,7 @@ function App() {
           <Route path={"/admin/createcourse"} element={<Create />} />
           <Route path={"/admin/courses"} element={<AllCourses />} />
           <Route path={"/admin/users"} element={<AllUsers />} />
+          <Route path={"admin/lecture/:id"} element={<Lectures />} />
 
 
 
