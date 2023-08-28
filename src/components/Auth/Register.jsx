@@ -2,9 +2,13 @@ import React, { useState } from "react";
 import Loading from "../layouts/Loading";
 import { Link } from "react-router-dom";
 import { FcMindMap } from "react-icons/fc";
-import profile from "../../assets/avatar.png"
+import profile from "../../assets/avatar.png";
+import { useDispatch } from "react-redux";
+import { register } from "../../redux/actions/user";
 
 export default function Register({ loading }) {
+  const dispatch = useDispatch();
+
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -25,6 +29,7 @@ export default function Register({ loading }) {
 
   const submitHandler = async (e) => {
     e.preventDefault();
+   await dispatch(register(name, email, password, avatar));
   };
   return (
     <>
@@ -119,7 +124,7 @@ export default function Register({ loading }) {
                   className="text-white bg-purple-500 border-0 py-3 px-3 focus:outline-none hover:bg-purple-600 rounded flex items-center justify-center heading w-full ">
                   Sign up
                 </button>
-                <div  className=" border-0 py-1  focus:outline-none hover:text-white rounded flex items-center para my-5">
+                <div className=" border-0 py-1  focus:outline-none hover:text-white rounded flex items-center para my-5">
                   {" "}
                   <Link to="/login">Already a user ? Login</Link>
                 </div>

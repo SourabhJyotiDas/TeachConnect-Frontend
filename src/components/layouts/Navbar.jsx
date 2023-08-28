@@ -4,7 +4,7 @@ import { FcMindMap } from "react-icons/fc";
 
 export default function Navbar() {
   const location = useLocation();
-  const isAuthenticated = true;
+  const isAuthenticated = false;
 
   return (
     <header className="text-gray-400 bg-gray-900 body-font sticky top-0 z-20 heading ">

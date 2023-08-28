@@ -22,11 +22,11 @@ export const login = (email, password) => async dispatch => {
   }
 };
 
-export const register = formdata => async dispatch => {
+export const register = (name, email, password, avatar) => async dispatch => {
   try {
     dispatch({ type: 'registerRequest' });
 
-    const { data } = await axios.post(`${server}/register`, formdata, {
+    const { data } = await axios.post(`${server}/register`, (name, email, password, avatar), {
       headers: {
         'Content-type': 'multipart/form-data',
       },
