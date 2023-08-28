@@ -1,16 +1,46 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Loading from "../layouts/Loading";
 import { FcMindMap } from "react-icons/fc";
+import { useDispatch, useSelector } from "react-redux";
+import { changePassword } from "../../redux/actions/profile";
+import { toast } from "react-toastify";
 
-export default function ChangePassword({ loading }) {
+export default function ChangePassword() {
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
 
+  const { message, loading, error } = useSelector((state) => state.profile);
+  const dispatch = useDispatch();
+
   const submitHandler = async (e) => {
     e.preventDefault();
+    await dispatch(changePassword(oldPassword, newPassword));
     setOldPassword("");
     setNewPassword("");
   };
+
+  useEffect(() => {
+    if (error) {
+      toast.error(error, {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: false,
+        progress: undefined,
+        theme: "dark",
+      });
+      dispatch({ type: "clearError" });
+    }
+    if (message) {
+      toast.success(message, {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: true,
+        progress: undefined,
+        theme: "dark",
+      });
+      dispatch({ type: "clearMessage" });
+    }
+  }, [dispatch, error, message]);
 
   return (
     <>

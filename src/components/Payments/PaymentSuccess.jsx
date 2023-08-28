@@ -1,6 +1,8 @@
 import React from "react";
+import { Link, useSearchParams } from "react-router-dom";
 
 export default function PaymentSuccess() {
+  const reference = useSearchParams()[0].get("reference");
   return (
     <section className="text-gray-400 bg-gray-900 body-font overflow-hidden flex items-center justify-center h-[80vh]">
       <div className="p-4 xl:w-1/4 md:w-1/2 w-full">
@@ -24,23 +26,26 @@ export default function PaymentSuccess() {
                 <path d="M20 6L9 17l-5-5"></path>
               </svg>
             </span>
-            Congratulation you're a pro member. Now you have access to premium content
+            Congratulation you're a pro member. Now you have access to premium
+            content
           </p>
-          <button className="heading flex items-center mt-auto text-white bg-gray-800 border-0 py-2 px-4 w-full focus:outline-none hover:bg-gray-700 rounded">
-            Go to Profile
-            <svg
-              fill="none"
-              stroke="currentColor"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              className="w-4 h-4 ml-auto"
-              viewBox="0 0 24 24">
-              <path d="M5 12h14M12 5l7 7-7 7"></path>
-            </svg>
-          </button>
-          <p className="text-xs text-gray-400 mt-3">
-            Reference : {"893265432864jndsbjf"}
+          <Link to={"/profile"}>
+            <button className="heading flex items-center mt-auto text-white bg-gray-800 border-0 py-2 px-4 w-full focus:outline-none hover:bg-gray-700 rounded">
+              Go to Profile
+              <svg
+                fill="none"
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                className="w-4 h-4 ml-auto"
+                viewBox="0 0 24 24">
+                <path d="M5 12h14M12 5l7 7-7 7"></path>
+              </svg>
+            </button>
+          </Link>
+          <p className=" mt-3 tracking-widest text-indigo-400 text-xs font-medium ">
+            Reference : {reference}
           </p>
         </div>
       </div>

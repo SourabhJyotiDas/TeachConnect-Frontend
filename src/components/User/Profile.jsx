@@ -1,47 +1,115 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { FiSettings } from "react-icons/fi";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import Loading from "../layouts/Loading";
+import moment from "moment";
+import PlaylistCard from "./PlaylistCard";
+import { cancelSubscription, loadUser } from "../../redux/actions/user";
+import { toast } from "react-toastify";
 
 export default function Profile() {
-  const isAuthenticated = true;
-  const user = {
-    role: "admin",
-    name: "Sourabh",
-    email: "Sourabh@gmail.com",
-    createdAt: Date.now(),
+  const dispatch = useDispatch();
+  const { loading, user } = useSelector((state) => state.user);
+  const {
+    loading: subsLoading,
+    error,
+    message,
+  } = useSelector((state) => state.subscription);
+
+  const cancelSubscriptionHandler = () => {
+    dispatch(cancelSubscription());
   };
+
+  useEffect(() => {
+    if (error) {
+      toast.error(error, {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: false,
+        progress: undefined,
+        theme: "dark",
+      });
+      dispatch({ type: "clearError" });
+    }
+    if (message) {
+      toast.success(message, {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: false,
+        progress: undefined,
+        theme: "dark",
+      });
+      dispatch(loadUser());
+      dispatch({ type: "clearMessage" });
+    }
+  }, [dispatch, error, message]);
 
   return (
     <>
-      <section className="text-gray-400 bg-gray-900 body-font flex flex-col space-y-5 items-center justify-center py-10">
-        <img
-          className="inline-block h-[100px] w-[100px] rounded-full bg-gradient-to-r from-pink-500 to-violet-500 p-1"
-          src="https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-          alt={user.name}
-        />
-        <h3 className="text-2xl heading">Name : Sourabh Jyoti Das</h3>
-        <p>Email : {user.email}</p>
-        <p className="para text-center">CreatedAT : {user.createdAt}</p>
-
-        <div className="flex items-center justify-evenly w-full">
-          {user && user.role === "admin" ? (
-            <>
-              <Link to={"/admin/dashboard"}>
-                <button className="text-white bg-purple-500 border-0 py-2 px-6 focus:outline-none hover:bg-purple-600 rounded text-lg flex items-center">
-                <FiSettings className="mx-2" />
-                  Admin
-                </button>
-              </Link>
-            </>
-          ) : null}
-          <Link to={"/settings"}>
-            <button className="text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg flex items-center">
-              <FiSettings className="mx-2" />
-              Profile
-            </button>
-          </Link>
-        </div>
-      </section>
+      {loading || subsLoading ? (
+        <Loading />
+      ) : (
+        <>
+          {user && (
+            <section className="text-gray-400 bg-gray-900 body-font flex flex-col space-y-5 items-center justify-center py-10">
+              <img
+                className="inline-block h-[100px] w-[100px] rounded-full bg-gradient-to-r from-pink-500 to-violet-500 p-1"
+                src={user.avatar.url}
+                alt={user.name}
+              />
+              <h3 className="text-2xl heading">Name : {user.name}</h3>
+              <p>Email : {user.email}</p>
+              <p className="para text-center">
+                JoinedAT : {moment(user.createdAt).fromNow()}
+              </p>
+              {user.role !== "admin" && (
+                <div className="flex items-center space-x-5">
+                  <p>Subscription : </p>
+                  {user.subscription &&
+                  user.subscription.status === "active" ? (
+                    <button
+                      onClick={cancelSubscriptionHandler}
+                      className="bg-red-400 text-white py-2 px-6 heading hover:bg-green-600">
+                      Cancel Subscription
+                    </button>
+                  ) : (
+                    <Link to="/subscribe">
+                      <button className="bg-green-500 text-white py-2 px-6 heading hover:bg-green-600">
+                        Subscribe
+                      </button>
+                    </Link>
+                  )}
+                </div>
+              )}
+              <div className="flex items-center justify-evenly w-full">
+                {user && user.role === "admin" ? (
+                  <>
+                    <Link to={"/admin/dashboard"}>
+                      <button className="text-white bg-purple-500 border-0 py-2 px-6 focus:outline-none hover:bg-purple-600 rounded text-lg flex items-center">
+                        <FiSettings className="mx-2" />
+                        Admin
+                      </button>
+                    </Link>
+                  </>
+                ) : null}
+                <Link to={"/settings"}>
+                  <button className="text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg flex items-center">
+                    <FiSettings className="mx-2" />
+                    Profile
+                  </button>
+                </Link>
+              </div>
+              <div className="pt-10">
+                <p className="text-center text-4xl para">Playlist</p>
+                {user.playlist?.map((ele, index) => (
+                  <PlaylistCard key={index} data={ele} />
+                ))}
+              </div>
+            </section>
+          )}
+        </>
+      )}
     </>
   );
 }

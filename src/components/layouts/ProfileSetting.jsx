@@ -1,11 +1,13 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
+import { logout } from "../../redux/actions/user";
 
 export default function ProfileSetting() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const handlelogout = async () => {
-    console.log("logout Successfully");
-    await navigate("/");
+    dispatch(logout());
   };
 
   return (

@@ -1,14 +1,23 @@
 import React, { useState } from "react";
 import Loading from "../layouts/Loading";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { login } from "../../redux/actions/user";
 
-export default function Login({ loading }) {
+export default function Login() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { loading } = useSelector((state) => state.user);
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
   const loginHandler = async (e) => {
     e.preventDefault();
-    console.log("Login Successfully");
+    await dispatch(login(email, password));
+    navigate("/profile");
   };
+
   return (
     <>
       {loading ? (
@@ -51,6 +60,10 @@ export default function Login({ loading }) {
                   className="text-white bg-purple-500 border-0 py-3 px-3 focus:outline-none hover:bg-purple-600 rounded flex items-center justify-center heading w-full my-3">
                   Log in
                 </button>
+                <div className="border-0 py-1  focus:outline-none hover:text-white rounded flex items-center para my-5">
+                  {" "}
+                  <Link to="/forgotpassword">Forgot Password</Link>
+                </div>
                 <div className=" border-0 py-1  focus:outline-none hover:text-white rounded flex items-center para my-5">
                   {" "}
                   <Link to="/register">New user ? Register</Link>

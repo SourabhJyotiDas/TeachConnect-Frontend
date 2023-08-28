@@ -2,9 +2,8 @@ import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { FcMindMap } from "react-icons/fc";
 
-export default function Navbar() {
+export default function Navbar({isAuthenticated}) {
   const location = useLocation();
-  const isAuthenticated = false;
 
   return (
     <header className="text-gray-400 bg-gray-900 body-font sticky top-0 z-20 heading ">

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Sidebar from "./Sidebar";
 import { AiOutlineMenu } from "react-icons/ai";
 
@@ -14,6 +14,8 @@ import {
   Legend,
   ArcElement,
 } from "chart.js";
+import { useDispatch, useSelector } from "react-redux";
+import { getDashboardStats } from "../../redux/actions/admin";
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -26,6 +28,39 @@ ChartJS.register(
 );
 
 export default function Dashboard() {
+
+  const dispatch = useDispatch()
+  const {
+    loading,
+    stats,
+    viewsCount,
+    subscriptionCount,
+    usersCount,
+    subscriptionPercentage,
+    viewsPercentage,
+    usersPercentage,
+    subscriptionProfit,
+    viewsProfit,
+    usersProfit,
+  } = useSelector((state) => state.admin);
+
+  console.log(
+    stats,
+    viewsCount,
+    subscriptionCount,
+    usersCount,
+    subscriptionPercentage,
+    viewsPercentage,
+    usersPercentage,
+    subscriptionProfit,
+    viewsProfit,
+    usersProfit
+  );
+
+  useEffect(() => {
+    dispatch(getDashboardStats());
+  }, [dispatch]);
+
   const lineState = {
     labels: getLastYearMOnths(),
     datasets: [
@@ -88,9 +123,8 @@ export default function Dashboard() {
       labels.unshift(element);
     }
     // console.log(labels);
-    return labels
+    return labels;
   }
-  
 
   return (
     <>

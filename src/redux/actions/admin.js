@@ -1,19 +1,18 @@
 import { server } from '../store';
 import axios from 'axios';
 
-export const createCourse = formData => async dispatch => {
+export const createCourse = (title, description, category, createdBy, image) => async dispatch => {
   try {
     const config = {
       headers: {
-        'Content-type': 'multipart/form-data',
-      },
-      withCredentials: true,
+        'Content-type': 'application/json',
+      }
     };
     dispatch({ type: 'createCourseRequest' });
 
     const { data } = await axios.post(
       `${server}/createcourse`,
-      formData,
+      { title, description, category, createdBy, image },
       config
     );
 
@@ -29,7 +28,6 @@ export const createCourse = formData => async dispatch => {
 export const deleteCourse = id => async dispatch => {
   try {
     const config = {
-      withCredentials: true,
     };
     dispatch({ type: 'deleteCourseRequest' });
 
@@ -44,19 +42,18 @@ export const deleteCourse = id => async dispatch => {
   }
 };
 
-export const addLecture = (id, formdata) => async dispatch => {
+export const addLecture = (id, title,description,video) => async dispatch => {
   try {
     const config = {
       headers: {
-        'Content-type': 'multipart/form-data',
-      },
-      withCredentials: true,
+        'Content-type': 'application/json',
+      }
     };
     dispatch({ type: 'addLectureRequest' });
 
     const { data } = await axios.post(
       `${server}/course/${id}`,
-      formdata,
+      {title,description,video},
       config
     );
 

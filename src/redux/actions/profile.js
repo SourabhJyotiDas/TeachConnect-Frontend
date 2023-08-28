@@ -1,7 +1,7 @@
 import { server } from '../store';
 import axios from 'axios';
 
-export const updateProfile = (name, email) => async dispatch => {
+export const updateProfile = (name, email, avatar) => async dispatch => {
   try {
     dispatch({ type: 'updateProfileRequest' });
 
@@ -10,13 +10,12 @@ export const updateProfile = (name, email) => async dispatch => {
       {
         name,
         email,
+        avatar
       },
       {
         headers: {
           'Content-type': 'application/json',
-        },
-
-        withCredentials: true,
+        }
       }
     );
 
@@ -67,9 +66,7 @@ export const changePassword = (oldPassword, newPassword) => async dispatch => {
       {
         headers: {
           'Content-type': 'application/json',
-        },
-
-        withCredentials: true,
+        }
       }
     );
 
@@ -89,18 +86,10 @@ export const forgetPassword = email => async dispatch => {
     const config = {
       headers: {
         'Content-type': 'application/json',
-      },
-
-      withCredentials: true,
+      }
     };
 
-    const { data } = await axios.post(
-      `${server}/forgetpassword`,
-      {
-        email,
-      },
-      config
-    );
+    const { data } = await axios.post(`${server}/forgetpassword`, { email }, config);
 
     dispatch({ type: 'forgetPasswordSuccess', payload: data.message });
   } catch (error) {
@@ -117,9 +106,7 @@ export const resetPassword = (token, password) => async dispatch => {
     const config = {
       headers: {
         'Content-type': 'application/json',
-      },
-
-      withCredentials: true,
+      }
     };
 
     const { data } = await axios.put(
@@ -146,9 +133,7 @@ export const addToPlaylist = id => async dispatch => {
     const config = {
       headers: {
         'Content-type': 'application/json',
-      },
-
-      withCredentials: true,
+      }
     };
 
     const { data } = await axios.post(
@@ -172,13 +157,8 @@ export const removeFromPlaylist = id => async dispatch => {
   try {
     dispatch({ type: 'removeFromPlaylistRequest' });
 
-    const config = {
-      withCredentials: true,
-    };
-
     const { data } = await axios.delete(
       `${server}/removefromplaylist?id=${id}`,
-      config
     );
 
     dispatch({ type: 'removeFromPlaylistSuccess', payload: data.message });

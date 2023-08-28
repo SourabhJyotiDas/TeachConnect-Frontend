@@ -1,11 +1,21 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Loading from "../layouts/Loading";
+import { useDispatch, useSelector } from "react-redux";
+import { updateProfile } from "../../redux/actions/profile";
+import { toast } from "react-toastify";
+import { loadUser } from "../../redux/actions/user";
+import { useNavigate } from "react-router-dom";
 
-export default function Editprofile({ loading }) {
-  const [name, setName] = useState("user.name");
-  const [email, setEmail] = useState("user.email");
+export default function Editprofile() {
+  const dispatch = useDispatch();
+  const navigate =useNavigate()
+  const { user} = useSelector((state) => state.user);
+  const { loading,message, error} = useSelector((state) => state.profile);
+
+  const [name, setName] = useState(user.name);
+  const [email, setEmail] = useState(user.email);
   const [avatar, setAvatar] = useState("");
-  const [avatarPrev, setAvatarPrev] = useState("user.avatar.url");
+  const [avatarPrev, setAvatarPrev] = useState(user.avatar.url);
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -23,7 +33,33 @@ export default function Editprofile({ loading }) {
 
   const submitHandler = async (e) => {
     e.preventDefault();
+    await dispatch(updateProfile(name, email, avatar));
+    dispatch(loadUser())
+    navigate("/profile")
   };
+
+  useEffect(() => {
+    if (error) {
+      toast.error(error, {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: false,
+        progress: undefined,
+        theme: "dark",
+      })
+      dispatch({ type: "clearError" });
+    }
+    if (message) {
+      toast.success(message, {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: false,
+        progress: undefined,
+        theme: "dark",
+      })
+      dispatch({ type: "clearMessage" });
+    }
+  }, [dispatch, error, message]);
 
   return (
     <>
@@ -75,7 +111,9 @@ export default function Editprofile({ loading }) {
                 onChange={handleImageChange}
                 className="my-5"
               />
-              <button type="submit" className="flex justify-center mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg items-center w-full">
+              <button
+                type="submit"
+                className="flex justify-center mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg items-center w-full">
                 Update
               </button>
             </form>

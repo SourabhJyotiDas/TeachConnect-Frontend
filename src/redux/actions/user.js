@@ -9,13 +9,10 @@ export const login = (email, password) => async dispatch => {
       { email, password },
       {
         headers: {
-          'Content-type': 'application/json',
-        },
-
-        withCredentials: true,
+          "Content-Type": "application/json",
+        }
       }
     );
-
     dispatch({ type: 'loginSuccess', payload: data });
   } catch (error) {
     dispatch({ type: 'loginFail', payload: error.response.data.message });
@@ -25,13 +22,11 @@ export const login = (email, password) => async dispatch => {
 export const register = (name, email, password, avatar) => async dispatch => {
   try {
     dispatch({ type: 'registerRequest' });
-
-    const { data } = await axios.post(`${server}/register`, (name, email, password, avatar), {
+    const { data } = await axios.post(`${server}/register`, { name, email, password, avatar }, {
       headers: {
-        'Content-type': 'multipart/form-data',
-      },
-
-      withCredentials: true,
+        // 'Content-type': 'multipart/form-data',
+        'Content-type':  "application/json",
+      }
     });
 
     dispatch({ type: 'registerSuccess', payload: data });
@@ -40,16 +35,14 @@ export const register = (name, email, password, avatar) => async dispatch => {
   }
 };
 
+
+
 export const loadUser = () => async dispatch => {
   try {
     dispatch({ type: 'loadUserRequest' });
 
     const { data } = await axios.get(
-      `${server}/me`,
-
-      {
-        withCredentials: true,
-      }
+      `${server}/me`
     );
     dispatch({ type: 'loadUserSuccess', payload: data.user });
   } catch (error) {
@@ -74,9 +67,7 @@ export const buySubscription = () => async dispatch => {
   try {
     dispatch({ type: 'buySubscriptionRequest' });
 
-    const { data } = await axios.get(`${server}/subscribe`, {
-      withCredentials: true,
-    });
+    const { data } = await axios.get(`${server}/subscribe`);
 
     dispatch({ type: 'buySubscriptionSuccess', payload: data.subscriptionId });
   } catch (error) {
@@ -91,9 +82,7 @@ export const cancelSubscription = () => async dispatch => {
   try {
     dispatch({ type: 'cancelSubscriptionRequest' });
 
-    const { data } = await axios.delete(`${server}/subscribe/cancel`, {
-      withCredentials: true,
-    });
+    const { data } = await axios.delete(`${server}/subscribe/cancel`);
 
     dispatch({ type: 'cancelSubscriptionSuccess', payload: data.message });
   } catch (error) {

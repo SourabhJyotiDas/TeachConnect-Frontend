@@ -3,11 +3,12 @@ import Loading from "../layouts/Loading";
 import { Link } from "react-router-dom";
 import { FcMindMap } from "react-icons/fc";
 import profile from "../../assets/avatar.png";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { register } from "../../redux/actions/user";
 
-export default function Register({ loading }) {
+export default function Register() {
   const dispatch = useDispatch();
+  const { loading } = useSelector((state) => state.user);
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -29,7 +30,7 @@ export default function Register({ loading }) {
 
   const submitHandler = async (e) => {
     e.preventDefault();
-   await dispatch(register(name, email, password, avatar));
+    dispatch(register(name, email, password, avatar));
   };
   return (
     <>
