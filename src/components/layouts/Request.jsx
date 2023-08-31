@@ -1,11 +1,14 @@
-import React, { useState } from "react";
-import { BiLogoGmail } from "react-icons/bi";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
 
 export default function Request() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [course, setCourse] = useState("");
+
+  useEffect(() => {
+    window.scroll(0,0)
+  }, [])
+  
   return (
     <section className="text-gray-400 bg-gray-900 body-font relative">
       <div className="container px-5 py-24 mx-auto">

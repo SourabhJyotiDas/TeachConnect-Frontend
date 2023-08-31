@@ -75,6 +75,7 @@ export default function Create() {
       });
       dispatch({ type: "clearMessage" });
     }
+    window.scroll(0, 0);
   }, [dispatch, error, message]);
 
   return (

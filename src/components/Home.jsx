@@ -1,12 +1,17 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import bg1 from "../assets/bg1.jpg";
 import Statistic from "./layouts/Statistic";
-import Loading from "./layouts/Loading";
 import Subscribe from "./Payments/Subscribe";
 import IntroVideo from "./layouts/IntroVideo";
 
 export default function Home() {
+
+  useEffect(() => {
+    window.scroll(0, 0);
+  }, [])
+  
+
   return (
     <>
       <section className="text-gray-400 bg-gray-900 body-font ">

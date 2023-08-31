@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import Sidebar from "./Sidebar";
-import { AiOutlineMenu } from "react-icons/ai";
 
 import { Doughnut, Line } from "react-chartjs-2";
 import {
@@ -15,7 +14,9 @@ import {
   ArcElement,
 } from "chart.js";
 import { useDispatch, useSelector } from "react-redux";
-import { getDashboardStats } from "../../redux/actions/admin";
+import { getAllUsers, getDashboardStats } from "../../redux/actions/admin";
+import Loading from "../layouts/Loading";
+import { getAllCourses } from "../../redux/actions/course";
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -28,61 +29,49 @@ ChartJS.register(
 );
 
 export default function Dashboard() {
+  const dispatch = useDispatch();
+  const { loading } = useSelector((state) => state.admin);
 
-  const dispatch = useDispatch()
-  const {
-    loading,
-    stats,
-    viewsCount,
-    subscriptionCount,
-    usersCount,
-    subscriptionPercentage,
-    viewsPercentage,
-    usersPercentage,
-    subscriptionProfit,
-    viewsProfit,
-    usersProfit,
-  } = useSelector((state) => state.admin);
+  const { users } = useSelector((state) => state.admin);
+  const { courses } = useSelector((state) => state.course);
 
-  console.log(
-    stats,
-    viewsCount,
-    subscriptionCount,
-    usersCount,
-    subscriptionPercentage,
-    viewsPercentage,
-    usersPercentage,
-    subscriptionProfit,
-    viewsProfit,
-    usersProfit
-  );
+  const viewsData = courses && courses.map((ele) => ele.views);
 
   useEffect(() => {
+    dispatch(getAllUsers());
+    dispatch(getAllCourses());
     dispatch(getDashboardStats());
+    window.scroll(0, 0);
   }, [dispatch]);
 
   const lineState = {
     labels: getLastYearMOnths(),
     datasets: [
       {
-        label: "TOTAL AMOUNT",
+        label: "TOTAL VIEWS",
         backgroundColor: ["tomato"],
         hoverBackgroundColor: ["rgb(197, 72, 49)"],
-        data: [0, 476, 23, 456],
+        data: viewsData,
       },
     ],
   };
 
-  const data = {
-    labels: ["Subscribed", "Not Subscribed"],
+  const SubscriberLists =
+    users &&
+    users.filter((ele) => {
+      return ele.subscription && ele.subscription.status === "active";
+    });
+
+  const doughnutData = {
+    labels: ["Subsribed", "Not Subscribed"],
     datasets: [
       {
         label: "# of orders",
-        data:
-          // ordersCount
-          //   ? [ordersCount.preparing, ordersCount.shipped, ordersCount.delivered]
-          //   :
-          [33, 66],
+        data: [
+          SubscriberLists && SubscriberLists.length,
+          Number(users && users.length) -
+            Number(SubscriberLists && SubscriberLists.length),
+        ],
         backgroundColor: ["#8e5cf4", "#e9489b"],
         borderColor: ["white", "white"],
         borderWidth: 1,
@@ -129,15 +118,19 @@ export default function Dashboard() {
   return (
     <>
       <Sidebar />
-      <section className="text-gray-400 bg-gray-900 flex justify-center items-center pt-20">
-        <div className="flex flex-col justify-center items-center ">
-          <p className="text-center para text-xs">{`Last Updated was on ${
-            String(new Date()).split("G")[0]
-          }`}</p>
-          <Doughnut data={data} />
-          <Line data={lineState} />
-        </div>
-      </section>
+      {loading ? (
+        <Loading />
+      ) : (
+        <section className="text-gray-400 bg-gray-900 flex justify-center items-center pt-20">
+          <div className="flex flex-col justify-center items-center ">
+            <p className="text-center para text-xs">{`Last Updated was on ${
+              String(new Date()).split("G")[0]
+            }`}</p>
+            <Doughnut data={doughnutData} />
+            <Line data={lineState} />
+          </div>
+        </section>
+      )}
     </>
   );
 }

@@ -1,7 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 
 export default function PaymentSuccess() {
+
+  useEffect(() => {
+    window.scroll(0,0)
+  }, [])
+  
+
   const reference = useSearchParams()[0].get("reference");
   return (
     <section className="text-gray-400 bg-gray-900 body-font overflow-hidden flex items-center justify-center h-[80vh]">

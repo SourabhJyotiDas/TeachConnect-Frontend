@@ -24,6 +24,10 @@ export default function ResetPassword() {
   };
 
   useEffect(() => {
+    window.scroll(0,0)
+  }, [])
+
+  useEffect(() => {
     if (error) {
       toast.error(error, {
         position: "top-center",

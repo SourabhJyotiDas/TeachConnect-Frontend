@@ -68,14 +68,10 @@ export const addLecture = (id, title,description,video) => async dispatch => {
 
 export const deleteLecture = (courseId, lectureId) => async dispatch => {
   try {
-    const config = {
-      withCredentials: true,
-    };
     dispatch({ type: 'deleteLectureRequest' });
 
     const { data } = await axios.delete(
-      `${server}/lecture?courseId=${courseId}&lectureId=${lectureId}`,
-      config
+      `${server}/lecture?courseId=${courseId}&lectureId=${lectureId}`
     );
 
     dispatch({ type: 'deleteLectureSuccess', payload: data.message });
@@ -89,12 +85,10 @@ export const deleteLecture = (courseId, lectureId) => async dispatch => {
 
 export const getAllUsers = () => async dispatch => {
   try {
-    const config = {
-      withCredentials: true,
-    };
+   
     dispatch({ type: 'getAllUsersRequest' });
 
-    const { data } = await axios.get(`${server}/admin/users`, config);
+    const { data } = await axios.get(`${server}/admin/users`);
 
     dispatch({ type: 'getAllUsersSuccess', payload: data.users });
   } catch (error) {

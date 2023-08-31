@@ -11,11 +11,8 @@ import { toast } from "react-toastify";
 export default function Profile() {
   const dispatch = useDispatch();
   const { loading, user } = useSelector((state) => state.user);
-  const {
-    loading: subsLoading,
-    error,
-    message,
-  } = useSelector((state) => state.subscription);
+  const { error, message } = useSelector((state) => state.profile);
+  const { loading: subsLoading } = useSelector((state) => state.subscription);
 
   const cancelSubscriptionHandler = () => {
     dispatch(cancelSubscription());
@@ -43,6 +40,7 @@ export default function Profile() {
       dispatch(loadUser());
       dispatch({ type: "clearMessage" });
     }
+    window.scroll(0, 0);
   }, [dispatch, error, message]);
 
   return (
@@ -76,7 +74,7 @@ export default function Profile() {
                   ) : (
                     <Link to="/subscribe">
                       <button className="bg-green-500 text-white py-2 px-6 heading hover:bg-green-600">
-                        Subscribe
+                        Subscribede
                       </button>
                     </Link>
                   )}
@@ -100,12 +98,18 @@ export default function Profile() {
                   </button>
                 </Link>
               </div>
-              <div className="pt-10">
-                <p className="text-center text-4xl para">Playlist</p>
-                {user.playlist?.map((ele, index) => (
-                  <PlaylistCard key={index} data={ele} />
-                ))}
-              </div>
+              {user.playlist.length === 0 ? (
+                <></>
+              ) : (
+                <div className="pt-10">
+                  <p className="text-center text-4xl para">Playlist</p>
+                  <div className="flex flex-wrap items-center">
+                    {user.playlist?.map((ele, index) => (
+                      <PlaylistCard key={index} data={ele} />
+                    ))}
+                  </div>
+                </div>
+              )}
             </section>
           )}
         </>

@@ -40,6 +40,7 @@ export default function ChangePassword() {
       });
       dispatch({ type: "clearMessage" });
     }
+    window.scroll(0, 0);
   }, [dispatch, error, message]);
 
   return (

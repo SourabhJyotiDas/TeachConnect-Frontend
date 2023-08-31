@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import Sidebar from "./Sidebar";
-import background from "../../assets/bg1.jpg";
 import { Link } from "react-router-dom";
 import { getAllCourses } from "../../redux/actions/course";
 import { toast } from "react-toastify";
@@ -10,7 +9,9 @@ import { deleteCourse } from "../../redux/actions/admin";
 
 export default function AllCourses() {
   const dispatch = useDispatch();
-  const { courses } = useSelector((state) => state.course);
+  const { courses, loading: courseLoading } = useSelector(
+    (state) => state.course
+  );
   const { loading, error, message } = useSelector((state) => state.admin);
 
   const deleteHandler = async (courseId) => {
@@ -43,12 +44,13 @@ export default function AllCourses() {
 
   useEffect(() => {
     dispatch(getAllCourses());
+    window.scroll(0, 0);
   }, [dispatch]);
 
   return (
     <>
       <Sidebar />
-      {loading ? (
+      {loading || courseLoading ? (
         <Loading />
       ) : (
         <section className="text-gray-400 bg-gray-900 flex flex-col items-center justify-center pt-20 px-3">

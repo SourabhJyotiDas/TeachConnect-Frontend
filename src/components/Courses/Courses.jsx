@@ -28,6 +28,7 @@ export default function Courses() {
 
   useEffect(() => {
     dispatch(getAllCourses(category, keyword));
+    window.scroll(0, 0);
   }, [dispatch, category, keyword]);
 
   useEffect(() => {

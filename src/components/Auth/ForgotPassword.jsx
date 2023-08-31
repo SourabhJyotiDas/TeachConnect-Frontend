@@ -17,6 +17,10 @@ export default function ForgotPassword() {
   };
 
   useEffect(() => {
+    window.scroll(0,0)
+  }, [])
+
+  useEffect(() => {
     if (error) {
       toast.error(error, {
         position: "top-center",

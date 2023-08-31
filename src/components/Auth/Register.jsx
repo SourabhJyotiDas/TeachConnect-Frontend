@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Loading from "../layouts/Loading";
 import { Link } from "react-router-dom";
 import { FcMindMap } from "react-icons/fc";
@@ -7,6 +7,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { register } from "../../redux/actions/user";
 
 export default function Register() {
+
+  useEffect(() => {
+    window.scroll(0,0)
+  }, [])
   const dispatch = useDispatch();
   const { loading } = useSelector((state) => state.user);
 

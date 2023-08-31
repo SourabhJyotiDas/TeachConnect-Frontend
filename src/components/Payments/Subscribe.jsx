@@ -77,6 +77,7 @@ export default function Subscribe() {
       };
       openPopup();
     }
+    window.scroll(0, 0);
   }, [
     dispatch,
     error,

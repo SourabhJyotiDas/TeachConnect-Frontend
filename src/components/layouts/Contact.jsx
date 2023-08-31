@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { BiLogoGmail } from "react-icons/bi";
 import { Link } from "react-router-dom";
 
@@ -6,6 +6,11 @@ export default function Contact() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
+
+  useEffect(() => {
+    window.scroll(0, 0);
+  }, []);
+
   return (
     <section className="text-gray-400 bg-gray-900 body-font relative">
       <div className="container px-5 py-24 mx-auto">
@@ -83,7 +88,7 @@ export default function Contact() {
             </div>
 
             <p className="my-5 para">
-              Request for a course ? Click {" "}
+              Request for a course ? Click{" "}
               <Link to={"/request"} className="text-indigo-500 underline">
                 here
               </Link>

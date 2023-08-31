@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Loading from "../layouts/Loading";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -17,6 +17,10 @@ export default function Login() {
     await dispatch(login(email, password));
     navigate("/profile");
   };
+
+  useEffect(() => {
+    window.scroll(0,0)
+  }, [])
 
   return (
     <>

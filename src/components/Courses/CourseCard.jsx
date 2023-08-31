@@ -17,7 +17,7 @@ export default function CourseCard({ data }) {
       <div className="xl:w-1/4 md:w-1/2 p-4">
         <div className="bg-gray-800 bg-opacity-40 p-6 rounded-lg space-y-3 hover:-translate-y-3 transition-all ease-in-out duration-300 ">
           <img
-            className="h-40 rounded w-full object-cover object-center mb-6"
+            className="h-auto rounded w-full object-cover object-center mb-6"
             src={data.poster.url}
             alt={data.title}
           />

@@ -8,9 +8,9 @@ import { useNavigate } from "react-router-dom";
 
 export default function Editprofile() {
   const dispatch = useDispatch();
-  const navigate =useNavigate()
-  const { user} = useSelector((state) => state.user);
-  const { loading,message, error} = useSelector((state) => state.profile);
+  const navigate = useNavigate();
+  const { user } = useSelector((state) => state.user);
+  const { loading, message, error } = useSelector((state) => state.profile);
 
   const [name, setName] = useState(user.name);
   const [email, setEmail] = useState(user.email);
@@ -34,8 +34,8 @@ export default function Editprofile() {
   const submitHandler = async (e) => {
     e.preventDefault();
     await dispatch(updateProfile(name, email, avatar));
-    dispatch(loadUser())
-    navigate("/profile")
+    dispatch(loadUser());
+    navigate("/profile");
   };
 
   useEffect(() => {
@@ -46,7 +46,7 @@ export default function Editprofile() {
         hideProgressBar: false,
         progress: undefined,
         theme: "dark",
-      })
+      });
       dispatch({ type: "clearError" });
     }
     if (message) {
@@ -56,9 +56,10 @@ export default function Editprofile() {
         hideProgressBar: false,
         progress: undefined,
         theme: "dark",
-      })
+      });
       dispatch({ type: "clearMessage" });
     }
+    window.scroll(0, 0);
   }, [dispatch, error, message]);
 
   return (
