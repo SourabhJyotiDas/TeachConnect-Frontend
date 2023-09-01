@@ -12,7 +12,7 @@ export default function Footer() {
               <h2 className="title-font font-medium text-white tracking-widest text-sm mb-3">
                 CATEGORIES
               </h2>
-              <nav className="list-none mb-10">
+              <nav className="list-none mb-10 text-xs">
                 <li>
                   <a className="text-gray-400 hover:text-white">First Link</a>
                 </li>
@@ -31,7 +31,7 @@ export default function Footer() {
               <h2 className="title-font font-medium text-white tracking-widest text-sm mb-3">
                 CATEGORIES
               </h2>
-              <nav className="list-none mb-10">
+              <nav className="list-none mb-10 text-xs">
                 <li>
                   <a className="text-gray-400 hover:text-white">First Link</a>
                 </li>
@@ -50,7 +50,7 @@ export default function Footer() {
               <h2 className="title-font font-medium text-white tracking-widest text-sm mb-3">
                 CATEGORIES
               </h2>
-              <nav className="list-none mb-10">
+              <nav className="list-none mb-10 text-xs">
                 <li>
                   <a className="text-gray-400 hover:text-white">First Link</a>
                 </li>
@@ -101,7 +101,7 @@ export default function Footer() {
               <FcMindMap className="text-2xl" />
               <span className="ml-3 text-xl">TeachConnect</span>
             </Link>
-            <p className="text-sm text-gray-400 sm:ml-6 sm:mt-0 mt-4">
+            <p className="text-xs text-gray-400 sm:ml-6 sm:mt-0 mt-4">
               © 2077 TeachConnect —
               <a
                 href="https://twitter.com/knyttneve"

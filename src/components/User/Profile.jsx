@@ -68,13 +68,13 @@ export default function Profile() {
                   user.subscription.status === "active" ? (
                     <button
                       onClick={cancelSubscriptionHandler}
-                      className="bg-red-400 text-white py-2 px-6 heading hover:bg-green-600">
+                      className="bg-red-400 text-white py-1 px-3 heading hover:bg-green-600">
                       Cancel Subscription
                     </button>
                   ) : (
                     <Link to="/subscribe">
-                      <button className="bg-green-500 text-white py-2 px-6 heading hover:bg-green-600">
-                        Subscribede
+                      <button className="bg-green-500 text-white py-1 px-3 heading hover:bg-green-600">
+                        Subscribed
                       </button>
                     </Link>
                   )}
@@ -84,7 +84,7 @@ export default function Profile() {
                 {user && user.role === "admin" ? (
                   <>
                     <Link to={"/admin/dashboard"}>
-                      <button className="text-white bg-purple-500 border-0 py-2 px-6 focus:outline-none hover:bg-purple-600 rounded text-lg flex items-center">
+                      <button className="text-white bg-purple-500 border-0 py-1 px-3 focus:outline-none hover:bg-purple-600 rounded flex items-center heading">
                         <FiSettings className="mx-2" />
                         Admin
                       </button>
@@ -92,7 +92,7 @@ export default function Profile() {
                   </>
                 ) : null}
                 <Link to={"/settings"}>
-                  <button className="text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg flex items-center">
+                  <button className="text-white bg-indigo-500 border-0 py-1 px-3 focus:outline-none hover:bg-indigo-600 rounded  flex items-center heading">
                     <FiSettings className="mx-2" />
                     Profile
                   </button>
@@ -102,7 +102,7 @@ export default function Profile() {
                 <></>
               ) : (
                 <div className="pt-10">
-                  <p className="text-center text-4xl para">Playlist</p>
+                  <p className="text-center text-xl para underline">Your  Playlist</p>
                   <div className="flex flex-wrap items-center">
                     {user.playlist?.map((ele, index) => (
                       <PlaylistCard key={index} data={ele} />

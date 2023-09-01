@@ -29,6 +29,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { loadUser } from './redux/actions/user';
 import ForgotPassword from './components/Auth/ForgotPassword';
 import ResetPassword from './components/Auth/ResetPassword';
+import ProtectedRoute from './protectedRoute/ProtectedRoute';
 
 
 function App() {
@@ -40,7 +41,6 @@ function App() {
   })
 
   const isAdmin = user && user.role === "admin"
-  const isSubscription = user && user.subscription && user.subscription.status === "active"
 
   useEffect(() => {
     if (error) {
@@ -78,7 +78,13 @@ function App() {
         <Routes>
           <Route path={"/"} element={<Home />} />
           <Route path={"/courses"} element={<Courses />} />
-          <Route path={"/course/:id"} element={<CourseDetails />} />
+
+          <Route path={"/course/:id"} element={
+            <ProtectedRoute isAuthenticated={isAuthenticated}>
+              <CourseDetails />
+            </ProtectedRoute>
+          } />
+
           <Route path={"/request"} element={<Request />} />
           <Route path={"/contact"} element={<Contact />} />
           <Route path={"/request"} element={<Request />} />
@@ -87,6 +93,10 @@ function App() {
           <Route path={"/forgotpassword"} element={!isAuthenticated ? <ForgotPassword /> : <Profile />} />
           <Route path={"/resetpassword/:token"} element={!isAuthenticated ? <ResetPassword /> : <Profile />} />
 
+
+          <Route element={<ProtectedRoute isAuthenticated={isAuthenticated} />}>
+            <Route path={"/subscribe"} element={<Subscribe />} />
+          </Route>
 
           <Route path={"/subscribe"} element={isAuthenticated ? <Subscribe /> : <Login />} />
           <Route path={"/paymentsuccess"} element={isAuthenticated ? <PaymentSuccess /> : <Login />} />

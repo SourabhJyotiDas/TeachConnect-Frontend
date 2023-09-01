@@ -14,7 +14,7 @@ export default function Home() {
 
   return (
     <>
-      <section className="text-gray-400 bg-gray-900 body-font ">
+      <section className="text-gray-400 bg-gray-900 ">
         <div className="container px-5 py-24 mx-auto flex flex-wrap">
           <div className="lg:w-2/3 mx-auto">
             <div className="flex flex-wrap w-full bg-gray-800 py-32 px-10 relative mb-4">
@@ -24,17 +24,17 @@ export default function Home() {
                 src={bg1}
               />
               <div className="text-center relative z-10 w-full">
-                <h2 className="text-2xl text-white font-medium title-font mb-2 uppercase heading">
+                <h2 className="text-xl text-white font-medium title-font mb-2 uppercase heading">
                   Learn from the experts
                 </h2>
-                <p className="leading-relaxed capitalize para">
+                <p className="leading-relaxed capitalize para text-xs">
                   Find valuable content at reasonable price.
                 </p>
 
                 <Link to={"/courses"}>
                   <button
                     type="button"
-                    className="text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg  heading">
+                    className="text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-sm  heading">
                     Learn More
                   </button>
                 </Link>

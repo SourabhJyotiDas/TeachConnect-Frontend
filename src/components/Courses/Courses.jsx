@@ -60,11 +60,11 @@ export default function Courses() {
         <Loading />
       ) : (
         <section className=" text-gray-400 bg-gray-900 body-font flex flex-col space-y-5 items-center justify-center py-10">
-          <h2 className="text-center heading text-2xl uppercase">
+          <h2 className="text-center heading text-xl uppercase">
             All Courses
           </h2>
 
-          <div className="overflow-hidden">
+          <div className="overflow-hidden w-[90%] mx-auto">
             <label
               htmlFor="name"
               className="leading-7 text-sm text-gray-400 para">
@@ -78,7 +78,7 @@ export default function Courses() {
               type="text"
               id="name"
               name="name"
-              className="w-full bg-gray-800 bg-opacity-40 rounded border border-gray-700 focus:border-indigo-500 focus:bg-gray-900 focus:ring-2 focus:ring-indigo-900 text-base outline-none text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out heading"
+              className=" bg-gray-800 bg-opacity-40 rounded border border-gray-700 focus:border-indigo-500 focus:bg-gray-900 focus:ring-2 focus:ring-indigo-900 text-base outline-none text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out heading"
             />
           </div>
 
@@ -86,7 +86,7 @@ export default function Courses() {
             {categories.map((ele, index) => (
               <button
                 key={index}
-                className="text-black bg-gradient-to-r from-pink-200 to-violet-200 border-0 py-1 px-3 mx-3 focus:outline-none hover:bg-indigo-600 rounded text-xs heading whitespace-nowrap"
+                className="text-gray-200 bg-gradient-to-r from-pink-700 to-violet-700 border-0 py-1 px-3 mx-3 focus:outline-none hover:bg-indigo-600 rounded text-xs heading whitespace-nowrap"
                 onClick={() => {
                   setCategory(ele);
                 }}>

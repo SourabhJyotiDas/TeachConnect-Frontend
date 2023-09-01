@@ -24,27 +24,27 @@ export default function CourseCard({ data }) {
           <h3 className="tracking-widest text-indigo-400 text-xs font-medium ">
             {data.category}
           </h3>
-          <h2 className="text-lg text-white font-medium title-font mb-4">
+          <h2 className="text-base text-white font-medium title-font mb-4">
             {data.title}
           </h2>
-          <p className="leading-relaxed text-base">
+          <p className="leading-relaxed text-sm">
             {data.description.slice(0, 130)}...
           </p>
           <p>Ratings : {data.ratings}</p>
           <p>Views : {data.views}</p>
-          <div className="flex items-center">
+          <div className="flex flex-col md:flex-row items-center space-y-3">
             <Link to={`/course/${data._id}`}>
-              <button className="text-white bg-purple-500 border-0 py-2 px-3 focus:outline-none hover:bg-purple-600 rounded text-xs flex items-center heading">
-                <GoVideo className="mx-3" />
+              <button className="text-white bg-purple-500 border-0 p-2 whitespace-nowrap focus:outline-none hover:bg-purple-600 rounded text-xs flex items-center heading">
+                <GoVideo className="mx-2" />
                 Watch Now
               </button>
             </Link>
             <button
-              className="text-white border-0 py-1 px-3 focus:outline-none hover:text-yellow-500 rounded text-xs flex items-center heading"
+              className="text-white border-0 p-1 focus:outline-none hover:text-yellow-500 rounded text-xs flex items-center heading whitespace-nowrap"
               onClick={() => {
                 addtoPlaylistHandler(data._id);
               }}>
-              <RiPlayList2Fill className="mx-3" />
+              <RiPlayList2Fill className="mx-2" />
               Add To Playlist
             </button>
           </div>
