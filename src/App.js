@@ -40,6 +40,7 @@ function App() {
     e.preventDefault();
   })
 
+  // Check if user is admin or not
   const isAdmin = user && user.role === "admin"
 
   useEffect(() => {
