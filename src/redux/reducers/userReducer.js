@@ -181,6 +181,19 @@ export const subscriptionReducer = createReducer(
       state.loading = false;
       state.error = action.payload;
     },
+
+
+    paymentVerificationRequest: state => {
+      state.loading = true;
+    },
+    paymentVerificationSuccess: (state, action) => {
+      state.loading = false;
+    },
+    paymentVerificationFail: (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    },
+
     clearError: state => {
       state.error = null;
     },

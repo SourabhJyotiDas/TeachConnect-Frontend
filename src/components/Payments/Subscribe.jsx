@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { buySubscription } from "../../redux/actions/user";
+import { buySubscription, paymentVerification } from "../../redux/actions/user";
 import { useDispatch, useSelector } from "react-redux";
 import Loading from "../layouts/Loading";
 import { toast } from "react-toastify";

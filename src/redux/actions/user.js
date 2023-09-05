@@ -25,7 +25,7 @@ export const register = (name, email, password, avatar) => async dispatch => {
     const { data } = await axios.post(`${server}/register`, { name, email, password, avatar }, {
       headers: {
         // 'Content-type': 'multipart/form-data',
-        'Content-type':  "application/json",
+        'Content-type': "application/json",
       }
     });
 
@@ -88,6 +88,27 @@ export const cancelSubscription = () => async dispatch => {
   } catch (error) {
     dispatch({
       type: 'cancelSubscriptionFail',
+      payload: error.response.data.message,
+    });
+  }
+};
+
+
+export const paymentVerification = (razorpay_signature, razorpay_payment_id, razorpay_subscription_id) => async dispatch => {
+  try {
+    dispatch({ type: 'paymentVerificationRequest' });
+    console.log(razorpay_signature, razorpay_payment_id, razorpay_subscription_id);
+    await axios.post(`${server}/paymentverification`, { razorpay_signature, razorpay_payment_id, razorpay_subscription_id }, {
+      headers: {
+        // 'Content-type': 'multipart/form-data',
+        'Content-type': "application/json",
+      }
+    });
+
+    dispatch({ type: 'paymentVerificationSuccess' });
+  } catch (error) {
+    dispatch({
+      type: 'paymentVerificationFail',
       payload: error.response.data.message,
     });
   }

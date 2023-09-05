@@ -71,13 +71,11 @@ export default function Profile() {
                       className="bg-red-400 text-white py-1 px-3 heading hover:bg-green-600">
                       Cancel Subscription
                     </button>
-                  ) : (
-                    <Link to="/subscribe">
+                  ) : 
                       <button className="bg-green-500 text-white py-1 px-3 heading hover:bg-green-600">
                         Subscribed
                       </button>
-                    </Link>
-                  )}
+                  }
                 </div>
               )}
               <div className="flex items-center justify-evenly w-full">
