@@ -94,22 +94,3 @@ export const cancelSubscription = () => async dispatch => {
 };
 
 
-export const paymentVerification = (razorpay_signature, razorpay_payment_id, razorpay_subscription_id) => async dispatch => {
-  try {
-    dispatch({ type: 'paymentVerificationRequest' });
-    console.log(razorpay_signature, razorpay_payment_id, razorpay_subscription_id);
-    await axios.post(`${server}/paymentverification`, { razorpay_signature, razorpay_payment_id, razorpay_subscription_id }, {
-      headers: {
-        // 'Content-type': 'multipart/form-data',
-        'Content-type': "application/json",
-      }
-    });
-
-    dispatch({ type: 'paymentVerificationSuccess' });
-  } catch (error) {
-    dispatch({
-      type: 'paymentVerificationFail',
-      payload: error.response.data.message,
-    });
-  }
-};

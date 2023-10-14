@@ -1,12 +1,9 @@
 import React from "react";
-import { Navigate, Outlet } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 
-export default function ProtectedRoute({ isAuthenticated, isAdmin, children }) {
+export default function ProtectedRoute({ isAuthenticated, children }) {
   if (!isAuthenticated) {
     return <Navigate to={"/login"} />;
   }
-  if (!isAdmin) {
-    return <Navigate to={"/profile"} />;
-  }
-  return <Outlet />;
+  return children;
 }

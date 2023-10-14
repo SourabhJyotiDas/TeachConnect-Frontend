@@ -1,9 +1,11 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
-import bg1 from "../assets/bg1.jpg";
+import bg1 from "../assets/BackgroundImage.jpg";
 import Statistic from "./layouts/Statistic";
 import Subscribe from "./Payments/Subscribe";
 import IntroVideo from "./layouts/IntroVideo";
+import backgroundVideo from "../assets/backgroundVideo.mp4"
+
 
 export default function Home() {
 
@@ -46,7 +48,7 @@ export default function Home() {
 
       <Statistic />
 
-      <IntroVideo video={""} />
+      <IntroVideo video={backgroundVideo} />
 
       <Subscribe />
     </>

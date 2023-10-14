@@ -1,7 +1,6 @@
 import React from "react";
-import bg from "../../assets/bg.mp4"
 
-export default function IntroVideo() {
+export default function IntroVideo({video}) {
   return (
     <>
       <section className="text-gray-400 bg-gray-900 body-font relative flex items-center justify-center py-5 md:py-10">
@@ -11,7 +10,7 @@ export default function IntroVideo() {
           controlsList="nodownload nofullscreen noremoteplayback"
           disablePictureInPicture
           disableRemotePlayback
-          src={bg}></video>
+          src={video}></video>
       </section>
     </>
   );

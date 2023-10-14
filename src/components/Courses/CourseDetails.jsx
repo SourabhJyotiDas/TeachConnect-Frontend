@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import IntroVideo from "../layouts/IntroVideo";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, Navigate,  useParams } from "react-router-dom";
+import { Link, Navigate, useParams } from "react-router-dom";
 import { getCourseLectures } from "../../redux/actions/course";
 import { toast } from "react-toastify";
 import Loading from "../layouts/Loading";
@@ -24,10 +24,12 @@ export default function CourseDetails() {
     setTitle(lectures[index].title);
     setDescription(lectures[index].description);
     setVideo(lectures[index].video.url);
+    window.scroll(0, 0);
   };
 
   useEffect(() => {
     dispatch(getCourseLectures(params.id));
+    window.scroll(0, 0);
   }, [dispatch, params.id]);
 
   useEffect(() => {
