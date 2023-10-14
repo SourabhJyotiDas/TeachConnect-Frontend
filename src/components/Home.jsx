@@ -4,8 +4,6 @@ import bg1 from "../assets/BackgroundImage.jpg";
 import Statistic from "./layouts/Statistic";
 import Subscribe from "./Payments/Subscribe";
 import IntroVideo from "./layouts/IntroVideo";
-import backgroundVideo from "../assets/backgroundVideo.mp4"
-
 
 export default function Home() {
 
@@ -48,7 +46,7 @@ export default function Home() {
 
       <Statistic />
 
-      <IntroVideo video={backgroundVideo} />
+      <IntroVideo video={"https://res.cloudinary.com/dg4wvkt37/video/upload/v1693241308/lazbg29d9nzguq2puvtw.mp4"} />
 
       <Subscribe />
     </>
