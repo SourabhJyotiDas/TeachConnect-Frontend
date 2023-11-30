@@ -21,5 +21,4 @@ const store = configureStore({
 
 export default store;
 
-// export const server = 'https://teachconnect.vercel.app/api/v1';
-export const server = '/api/v1';
+export const server = 'https://teachconnect.vercel.app/api/v1';

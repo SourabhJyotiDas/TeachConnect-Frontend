@@ -105,13 +105,11 @@ export default function Dashboard() {
       labels.unshift(element);
       if (i === 0) break;
     }
-    // console.log(labels);
     for (let i = 11; i > remain; i--) {
       if (i === currentMonth) break;
       const element = months[i];
       labels.unshift(element);
     }
-    // console.log(labels);
     return labels;
   }
 

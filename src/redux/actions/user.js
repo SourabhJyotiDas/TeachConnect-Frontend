@@ -10,7 +10,8 @@ export const login = (email, password) => async dispatch => {
       {
         headers: {
           "Content-Type": "application/json",
-        }
+        },
+        withCredentials: true
       }
     );
     dispatch({ type: 'loginSuccess', payload: data });
@@ -24,9 +25,9 @@ export const register = (name, email, password, avatar) => async dispatch => {
     dispatch({ type: 'registerRequest' });
     const { data } = await axios.post(`${server}/register`, { name, email, password, avatar }, {
       headers: {
-        // 'Content-type': 'multipart/form-data',
         'Content-type': "application/json",
-      }
+      },
+      withCredentials: true
     });
 
     dispatch({ type: 'registerSuccess', payload: data });
@@ -42,7 +43,7 @@ export const loadUser = () => async dispatch => {
     dispatch({ type: 'loadUserRequest' });
 
     const { data } = await axios.get(
-      `${server}/me`
+      `${server}/me`, { withCredentials: true }
     );
     dispatch({ type: 'loadUserSuccess', payload: data.user });
   } catch (error) {
@@ -67,7 +68,7 @@ export const buySubscription = () => async dispatch => {
   try {
     dispatch({ type: 'buySubscriptionRequest' });
 
-    const { data } = await axios.get(`${server}/subscribe`);
+    const { data } = await axios.get(`${server}/subscribe`, { withCredentials: true });
 
     dispatch({ type: 'buySubscriptionSuccess', payload: data.subscriptionId });
   } catch (error) {
@@ -82,7 +83,7 @@ export const cancelSubscription = () => async dispatch => {
   try {
     dispatch({ type: 'cancelSubscriptionRequest' });
 
-    const { data } = await axios.delete(`${server}/subscribe/cancel`);
+    const { data } = await axios.delete(`${server}/subscribe/cancel`, { withCredentials: true });
 
     dispatch({ type: 'cancelSubscriptionSuccess', payload: data.message });
   } catch (error) {
@@ -92,5 +93,3 @@ export const cancelSubscription = () => async dispatch => {
     });
   }
 };
-
-

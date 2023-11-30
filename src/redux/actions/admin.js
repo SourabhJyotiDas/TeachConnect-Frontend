@@ -6,7 +6,8 @@ export const createCourse = (title, description, category, createdBy, image) => 
     const config = {
       headers: {
         'Content-type': 'application/json',
-      }
+      },
+      withCredentials: true
     };
     dispatch({ type: 'createCourseRequest' });
 
@@ -27,11 +28,10 @@ export const createCourse = (title, description, category, createdBy, image) => 
 
 export const deleteCourse = id => async dispatch => {
   try {
-    const config = {
-    };
+
     dispatch({ type: 'deleteCourseRequest' });
 
-    const { data } = await axios.delete(`${server}/course/${id}`, config);
+    const { data } = await axios.delete(`${server}/course/${id}`, { withCredentials: true });
 
     dispatch({ type: 'deleteCourseSuccess', payload: data.message });
   } catch (error) {
@@ -42,18 +42,19 @@ export const deleteCourse = id => async dispatch => {
   }
 };
 
-export const addLecture = (id, title,description,video) => async dispatch => {
+export const addLecture = (id, title, description, video) => async dispatch => {
   try {
     const config = {
       headers: {
         'Content-type': 'application/json',
-      }
+      },
+      withCredentials: true
     };
     dispatch({ type: 'addLectureRequest' });
 
     const { data } = await axios.post(
       `${server}/course/${id}`,
-      {title,description,video},
+      { title, description, video },
       config
     );
 
@@ -71,7 +72,7 @@ export const deleteLecture = (courseId, lectureId) => async dispatch => {
     dispatch({ type: 'deleteLectureRequest' });
 
     const { data } = await axios.delete(
-      `${server}/lecture?courseId=${courseId}&lectureId=${lectureId}`
+      `${server}/lecture?courseId=${courseId}&lectureId=${lectureId}`,{withCredentials:true}
     );
 
     dispatch({ type: 'deleteLectureSuccess', payload: data.message });
@@ -85,10 +86,10 @@ export const deleteLecture = (courseId, lectureId) => async dispatch => {
 
 export const getAllUsers = () => async dispatch => {
   try {
-   
+
     dispatch({ type: 'getAllUsersRequest' });
 
-    const { data } = await axios.get(`${server}/admin/users`);
+    const { data } = await axios.get(`${server}/admin/users`,{withCredentials:true});
 
     dispatch({ type: 'getAllUsersSuccess', payload: data.users });
   } catch (error) {
@@ -106,7 +107,7 @@ export const updateUserRole = id => async dispatch => {
     };
     dispatch({ type: 'updateUserRoleRequest' });
 
-    const { data } = await axios.put(`${server}/admin/user/${id}`, {}, config);
+    const { data } = await axios.put(`${server}/admin/user/${id}`, config);
 
     dispatch({ type: 'updateUserRoleSuccess', payload: data.message });
   } catch (error) {

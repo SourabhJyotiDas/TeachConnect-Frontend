@@ -15,7 +15,8 @@ export const updateProfile = (name, email, avatar) => async dispatch => {
       {
         headers: {
           'Content-type': 'application/json',
-        }
+        },
+        withCredentials: true
       }
     );
 
@@ -66,7 +67,8 @@ export const changePassword = (oldPassword, newPassword) => async dispatch => {
       {
         headers: {
           'Content-type': 'application/json',
-        }
+        },
+        withCredentials: true
       }
     );
 
@@ -86,7 +88,8 @@ export const forgetPassword = email => async dispatch => {
     const config = {
       headers: {
         'Content-type': 'application/json',
-      }
+      },
+      withCredentials: true
     };
 
     const { data } = await axios.post(`${server}/forgetpassword`, { email }, config);
@@ -105,8 +108,9 @@ export const resetPassword = (token, password) => async dispatch => {
     dispatch({ type: 'resetPasswordRequest' });
     const config = {
       headers: {
-        'Content-type': 'application/json',
-      }
+        'Content-Type': 'application/json',
+      },
+      withCredentials: true
     };
 
     const { data } = await axios.put(
@@ -133,7 +137,8 @@ export const addToPlaylist = id => async dispatch => {
     const config = {
       headers: {
         'Content-type': 'application/json',
-      }
+      },
+      withCredentials: true
     };
 
     const { data } = await axios.post(
@@ -159,6 +164,7 @@ export const removeFromPlaylist = id => async dispatch => {
 
     const { data } = await axios.delete(
       `${server}/removefromplaylist?id=${id}`,
+      { withCredentials: true }
     );
 
     dispatch({ type: 'removeFromPlaylistSuccess', payload: data.message });
